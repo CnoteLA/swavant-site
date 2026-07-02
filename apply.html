@@ -188,7 +188,7 @@ td{padding:14px 16px;border-bottom:1px solid var(--line);}
 </svg>
 <h2 class="serif" style="margin:24px 0 12px;">I'm a creator</h2>
 <p style="color:rgba(246,244,239,.6);margin-bottom:24px;">Tell us about your TikTok and what you're looking for. Our team reviews every application.</p>
-<form onsubmit="event.preventDefault();this.querySelector('.confirm').style.display='block';this.querySelectorAll('.field,button').forEach(el=>el.style.display='none');">
+<form onsubmit="handleCreatorApply(event,this)">
 <div class="field"><label>Your name</label><input required></div>
 <div class="field"><label>Email</label><input type="email" required></div>
 <div class="field"><label>TikTok handle</label><input placeholder="@yourhandle" required></div>
@@ -197,10 +197,17 @@ td{padding:14px 16px;border-bottom:1px solid var(--line);}
 <div class="field"><label>Follower count</label><input type="number" min="0" required></div>
 </div>
 <div class="field"><label>Tell us about your content</label><textarea rows="3" required></textarea></div>
+<div class="field"><label>What are you interested in?</label>
+<div style="display:flex;gap:20px;flex-wrap:wrap;margin-top:10px;">
+<label style="display:inline-flex;align-items:center;gap:7px;font-weight:400;text-transform:none;letter-spacing:normal;font-size:.9rem;color:rgba(246,244,239,.85);margin:0;"><input type="radio" name="interest" value="network" required style="width:auto;">Creator Network</label>
+<label style="display:inline-flex;align-items:center;gap:7px;font-weight:400;text-transform:none;letter-spacing:normal;font-size:.9rem;color:rgba(246,244,239,.85);margin:0;"><input type="radio" name="interest" value="shop" style="width:auto;">TikTok Shop</label>
+<label style="display:inline-flex;align-items:center;gap:7px;font-weight:400;text-transform:none;letter-spacing:normal;font-size:.9rem;color:rgba(246,244,239,.85);margin:0;"><input type="radio" name="interest" value="both" style="width:auto;">Both</label>
+</div>
+</div>
 <button type="submit" class="btn btn-primary" style="width:100%;">Apply as a creator</button>
 <div class="confirm" style="display:none;padding:28px;border:1px solid rgba(201,164,106,.4);background:rgba(201,164,106,.05);border-radius:16px;">
 <p class="serif" style="font-size:1.25rem;margin:0 0 8px;">Application received.</p>
-<p style="color:rgba(246,244,239,.6);margin:0;font-size:.9rem;">Thanks, we'll be in touch once our team has reviewed it.</p>
+<p style="color:rgba(246,244,239,.6);margin:0;font-size:.9rem;">Thanks, we'll be in touch once our team has reviewed it. If you're joining the Creator Network, use the invite link in the popup.</p>
 </div>
 </form>
 </div>
@@ -234,6 +241,32 @@ td{padding:14px 16px;border-bottom:1px solid var(--line);}
 </div>
 
 </div>
+
+<div id="networkInviteModal" style="display:none;position:fixed;inset:0;background:rgba(10,10,10,.85);z-index:999;align-items:center;justify-content:center;padding:24px;">
+<div style="background:var(--ink);border:1px solid var(--gold);border-radius:20px;max-width:420px;width:100%;padding:40px;text-align:center;position:relative;">
+<button type="button" onclick="document.getElementById('networkInviteModal').style.display='none';" style="position:absolute;top:14px;right:16px;background:none;border:none;color:rgba(246,244,239,.5);font-size:1.5rem;cursor:pointer;line-height:1;">&times;</button>
+<div class="eyebrow" style="display:inline-block;">Creator Network</div>
+<h3 class="serif" style="font-size:1.5rem;margin:12px 0;">Join the Creator Network</h3>
+<p style="color:rgba(246,244,239,.6);font-size:.9rem;margin-bottom:24px;">Application received. Scan the code or tap below to join the TikTok Creator Network directly.</p>
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAUoAAAFKAQAAAABTUiuoAAACWElEQVR4nO2bQWrkMBBFX0WGXsqQA/RR5KvNkeYG1lFygAFr2SDzZyG5nUwYSAYyLUh50aitt/hQVOlLKpv44JOfPkqCo446+gTF+rOwmy1AG5lNHFPTIFodJUiSBASRZ9BaLiJtQJIkbcNodRR69rCbVsDsemujlnnLlwtw9N/QtO0mbUG2xPoIAY7+/ZnevSnPzSa+M4sP1+poQyVVoEzYApBtwmwGiFKviYNo/c7oBOx2/AvVACxtz5B+TpXc5sKXCXD0c9GKZ82rKM+Y4GbKc3hTDh+u1dEnKBPkeTdbihlEycwusiXejDwPpfWbo33JSqpobTuvStt/aQtqE9qCtD5cq6NIG5yR6T8baI31sB9RHq0R0B6tlbsxjD3LesgI8miNgh5VTxUgSGuUSFvo501nifRoPR7t0Vqj9DpuUX2LfE54tMZBy0TzhNkmzgNd0rb7GfwwKL3gbX3dav7vj9Hq69YwaJT04yq1FMrXm0G5CNiNPAed6MO1fnP0jUeP3bzD4QmbRfT91iDofat13EaegUp3++GecBD07uBf2/g+ddpBj9YYaM+tllGnozgc/DHhLmMIdGorE4Aoc3tpadsnIFQoz5At1AG0OtodPHA/Iuy+nbSFfqrhDn4Q9EghwNolfwFLP/tIlN1IL5Pn1gho68uwFrJ4M/XCWKFfKocKZQitjr5B730ZFOsb43bydK3/R4Cjn0Cj1EMWK7Yc7YWkFz8nHAJtlfBV+0WeMeX5F/QFLVSy59Y46N563VuHBlEivVz6/Zb3ZYyEmn8R5KijX4L+Blh4shebW1auAAAAAElFTkSuQmCC" alt="Creator Network invite QR code" style="width:220px;height:220px;margin:0 auto 20px;border-radius:12px;display:block;background:#fff;padding:14px;">
+<a href="https://www.tiktok.com/t/ZS2AQ68SE/" target="_blank" rel="noopener" class="btn btn-primary" style="width:100%;">Open invite link</a>
+<p style="margin-top:16px;font-size:.75rem;color:rgba(246,244,239,.4);word-break:break-all;">https://www.tiktok.com/t/ZS2AQ68SE/</p>
+</div>
+</div>
+
+<script>
+function handleCreatorApply(e, form){
+  e.preventDefault();
+  var sel = form.querySelector('input[name="interest"]:checked');
+  var val = sel ? sel.value : '';
+  form.querySelectorAll('.field,button').forEach(function(el){ el.style.display = 'none'; });
+  form.querySelector('.confirm').style.display = 'block';
+  if(val === 'network' || val === 'both'){
+    document.getElementById('networkInviteModal').style.display = 'flex';
+  }
+}
+</script>
+
 <p style="margin-top:40px;color:rgba(246,244,239,.5);font-size:.9rem;">Prefer to just send a message first? <a href="contact.html" style="color:var(--gold);">Contact us</a> instead.</p>
 </div></section>
 <footer><div class="wrap">
